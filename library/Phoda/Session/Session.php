@@ -85,6 +85,28 @@ class Session implements \IteratorAggregate, \Countable
     }
     
     /**
+     * Unsets one item from the $_SESSION
+     * 
+     * @param string $key
+     * @return void
+     */
+    public function remove($key)
+    {
+        unset($_SESSION[$this->namespace][$key]);
+    }
+    
+    /**
+     * Verifies if the item isSet
+     * 
+     * @param string $key
+     * @return bool
+     */
+    public function __isset($key)
+    {
+        return isset($_SESSION[$this->namespace][$key]);
+    }
+    
+    /**
      * Counts the properties stored into the $_SESSION
      * 
      * @return int
@@ -136,4 +158,6 @@ class Session implements \IteratorAggregate, \Countable
     {
         return session_start();
     }
+    
+    
 }
