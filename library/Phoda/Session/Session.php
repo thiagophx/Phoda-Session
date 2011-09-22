@@ -70,6 +70,9 @@ class Session implements \IteratorAggregate, \Countable
      */
     public function __set($key, $value)
     {
+        if(is_object($value))
+            $value = serialize($value);
+            
         $_SESSION[$this->namespace][$key] = $value;
     }
     
@@ -81,7 +84,12 @@ class Session implements \IteratorAggregate, \Countable
      */
     public function __get($key)
     {
-        return $_SESSION[$this->namespace][$key];
+        $value = @unserialize($_SESSION[$this->namespace][$key]);
+        
+        if($value !== false)
+            return $value;
+        else
+            return $_SESSION[$this->namespace][$key];
     }
     
     /**
