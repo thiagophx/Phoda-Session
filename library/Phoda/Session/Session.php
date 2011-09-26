@@ -84,12 +84,12 @@ class Session implements \IteratorAggregate, \Countable
      */
     public function __get($key)
     {
-        $value = @unserialize($_SESSION[$this->namespace][$key]);
+        $obj = $_SESSION[$this->namespace][$key];
         
-        if($value !== false)
-            return $value;
+        if( (is_string($obj)) && (preg_match('/^O:\d:"[a-zA-Z0-9_]{1,}"/', $obj)) )
+            return unserialize($obj);
         else
-            return $_SESSION[$this->namespace][$key];
+            return $obj;
     }
     
     /**
