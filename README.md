@@ -19,6 +19,8 @@ Setting and getting properties
     $session = new Session();
     $session->name = 'My name';
     $session->emails = array('email1@example.com', 'email2@example.com');
+
+	// Objects are serialized and unserialized automatically
     $session->user = new stdClass();
     
     var_dump($session->name);
@@ -27,6 +29,26 @@ Setting and getting properties
     
     Session::destroy();
 
+Checking whether the property isset and removing the property
+--------------------------
+
+	use Phoda\Session\Session;
+
+    require 'Session.php';
+
+    Session::start();
+
+    $session = new Session();
+    $session->name = 'My name';
+    $session->emails = array('email1@example.com', 'email2@example.com');
+    $session->user = new stdClass();
+	
+	var_dump(isset($session->name));
+	$session->remove('name');
+	var_dump(isset($session->name));
+
+    Session::destroy();
+	
 Iterating thru the session
 --------------------------
 	
