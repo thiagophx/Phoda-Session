@@ -86,7 +86,7 @@ class Session implements \IteratorAggregate, \Countable
     {
         $obj = $_SESSION[$this->namespace][$key];
         
-        if( (is_string($obj)) && (preg_match('/^O:\d:"[a-zA-Z0-9_]{1,}"/', $obj)) )
+        if( (is_string($obj)) && (preg_match('/^[OC]:\d{1,}:"[a-zA-Z0-9_]{1,}"/', $obj)) )
             return unserialize($obj);
         else
             return $obj;
